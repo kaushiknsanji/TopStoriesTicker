@@ -14,7 +14,7 @@ android {
     def GUARDIAN_API_KEY = "GUARDIAN_API_KEY"
     def GUARDIAN_API_KEY_VAL = '"' + credProperties['GUARDIAN_API_KEY_VAL'] + '"'
     def BASE_URL = "BASE_URL"
-    def BASE_URL_VAL = "BASE_URL"
+    def BASE_URL_VAL = '"' + "https://content.guardianapis.com" + '"'
 
     compileSdkVersion rootProject.ext.compile_sdk_version
 

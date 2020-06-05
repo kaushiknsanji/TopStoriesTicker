@@ -3,12 +3,12 @@
     <!-- MATCH CONSTRAINT Dimension used for ConstraintLayouts -->
     <dimen name="match_constraint_0dp">0dp</dimen>
 
-    <dimen name="main_content_padding">8dp</dimen>
+    <!-- Content Padding for the main frame layout -->
+    <dimen name="main_frame_content_padding">8dp</dimen>
 
     <!-- ========================== -->
     <!-- FOR THE NEWS ARTICLE ITEMS -->
     <!-- ========================== -->
-    <dimen name="articles_layout_content_padding">8dp</dimen>
     <dimen name="text_article_title_margin_top">8dp</dimen>
     <dimen name="text_article_published_date_margin_top">8dp</dimen>
     <dimen name="text_article_section_size">12sp</dimen>

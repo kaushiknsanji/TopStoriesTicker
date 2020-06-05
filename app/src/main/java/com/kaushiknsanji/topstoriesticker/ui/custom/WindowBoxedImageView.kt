@@ -18,8 +18,11 @@ import androidx.core.content.ContextCompat
  */
 class WindowBoxedImageView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     AppCompatImageView(context, attrs, defStyleAttr) {
-    //Constant for the Picture Zoom level in portrait mode
-    private val PORTRAIT_ZOOM_LEVEL = 0.70f
+
+    companion object {
+        // Constant for the Picture Zoom level in portrait mode
+        private const val PORTRAIT_ZOOM_LEVEL = 0.70f
+    }
 
     /**
      * Method extended to resize/scale the image/drawable to 70 percent zoom in portrait mode

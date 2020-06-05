@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/state_main_item">
 
-        <com.example.kaushiknsanji.novalines.customviews.WindowBoxedImageView
+        <com.kaushiknsanji.topstoriesticker.ui.custom.WindowBoxedImageView
             android:id="@+id/image_article_thumb"
             android:layout_width="@dimen/match_constraint_0dp"
             android:layout_height="@dimen/match_constraint_0dp"
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="@integer/article_trail_text_max_lines_expanded"
+            android:maxLines="@integer/text_article_trail_max_lines_expanded"
             android:textColor="@color/trialTextColor"
             android:textSize="@dimen/text_article_trail_size"
             app:layout_constrainedWidth="true"
@@ -121,6 +121,7 @@
         <ImageButton
             android:id="@+id/imgbtn_article_expand"
             style="@style/NewsCardImageButtonsStyle"
+            android:contentDescription="@string/cd_imgbtn_article_expand"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintRight_toRightOf="parent"

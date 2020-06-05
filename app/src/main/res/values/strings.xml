@@ -2,5 +2,8 @@
     <!-- Name of the App -->
     <string name="app_name">TopStoriesTicker</string>
 
+    <!-- Content Description for the Expand/Collapse Image Button -->
+    <string name="cd_imgbtn_article_expand">Expand/Collapse button</string>
+
 
 </resources>
