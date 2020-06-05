@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- MATCH CONSTRAINT Dimension used for ConstraintLayouts -->
+    <dimen name="match_constraint_0dp">0dp</dimen>
+
+    <dimen name="main_content_padding">8dp</dimen>
+
+    <!-- ========================== -->
+    <!-- FOR THE NEWS ARTICLE ITEMS -->
+    <!-- ========================== -->
+    <dimen name="articles_layout_content_padding">8dp</dimen>
+    <dimen name="text_article_title_margin_top">8dp</dimen>
+    <dimen name="text_article_published_date_margin_top">8dp</dimen>
+    <dimen name="text_article_section_size">12sp</dimen>
+    <dimen name="text_article_title_size">16sp</dimen>
+    <dimen name="text_article_trail_size">14sp</dimen>
+    <dimen name="text_article_publisher_size">14sp</dimen>
+    <dimen name="text_article_published_date_size">12sp</dimen>
+    <dimen name="article_content_vertical_spacing">4dp</dimen>
+    <dimen name="text_article_section_margin_start">12dp</dimen>
+    <dimen name="text_article_section_gone_margin_left">8dp</dimen>
+    <dimen name="imgbtn_article_expand_size">48dp</dimen>
+
+</resources>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/NewsItemCardStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/state_main_item">
+
+        <com.example.kaushiknsanji.novalines.customviews.WindowBoxedImageView
+            android:id="@+id/image_article_thumb"
+            android:layout_width="@dimen/match_constraint_0dp"
+            android:layout_height="@dimen/match_constraint_0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/text_article_section"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintRight_toLeftOf="@+id/text_article_section"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_news_thumbnail" />
+
+        <TextView
+            android:id="@+id/text_article_section"
+            android:layout_width="@dimen/match_constraint_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_article_section_margin_start"
+            android:layout_marginTop="@dimen/article_content_vertical_spacing"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAllCaps="true"
+            android:textColor="@color/sectionTextColor"
+            android:textSize="@dimen/text_article_section_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/imgbtn_article_expand"
+            app:layout_constraintHorizontal_weight="2.25"
+            app:layout_constraintLeft_toRightOf="@+id/image_article_thumb"
+            app:layout_constraintRight_toLeftOf="@+id/imgbtn_article_expand"
+            app:layout_constraintStart_toEndOf="@+id/image_article_thumb"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginLeft="@dimen/text_article_section_gone_margin_left"
+            app:layout_goneMarginStart="@dimen/text_article_section_gone_margin_left"
+            tools:text="Film" />
+
+        <TextView
+            android:id="@+id/text_article_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_article_title_margin_top"
+            android:textColor="@color/titleTextColor"
+            android:textSize="@dimen/text_article_title_size"
+            android:textStyle="bold"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="@+id/text_article_section"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toLeftOf="@+id/text_article_section"
+            app:layout_constraintRight_toRightOf="@+id/text_article_section"
+            app:layout_constraintStart_toStartOf="@+id/text_article_section"
+            app:layout_constraintTop_toBottomOf="@+id/text_article_section"
+            tools:text="'All the grace of a drunk ewok': readers review Star Wars: The Last Jedi" />
+
+        <TextView
+            android:id="@+id/text_article_trail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="@integer/article_trail_text_max_lines_expanded"
+            android:textColor="@color/trialTextColor"
+            android:textSize="@dimen/text_article_trail_size"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="@+id/text_article_section"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toLeftOf="@+id/text_article_section"
+            app:layout_constraintRight_toRightOf="@+id/text_article_section"
+            app:layout_constraintStart_toStartOf="@+id/text_article_section"
+            app:layout_constraintTop_toBottomOf="@+id/text_article_title"
+            tools:text="We asked fans to give their verdicts on episode eight of the Star Wars saga. From raving reviews to bitter disappointment, here’s what some of you said" />
+
+        <TextView
+            android:id="@+id/text_article_publisher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/article_content_vertical_spacing"
+            android:ellipsize="end"
+            android:maxLines="@integer/text_article_publisher_max_lines_collapsed"
+            android:textColor="@color/publisherTextColor"
+            android:textSize="@dimen/text_article_publisher_size"
+            android:textStyle="italic"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="@+id/text_article_section"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toLeftOf="@+id/text_article_section"
+            app:layout_constraintRight_toRightOf="@+id/text_article_section"
+            app:layout_constraintStart_toStartOf="@+id/text_article_section"
+            app:layout_constraintTop_toBottomOf="@+id/text_article_trail"
+            app:layout_goneMarginTop="@dimen/article_content_vertical_spacing"
+            tools:text="by Guardian readers and Rachel Obordo" />
+
+        <TextView
+            android:id="@+id/text_article_published_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_article_published_date_margin_top"
+            android:layout_marginBottom="@dimen/article_content_vertical_spacing"
+            android:textColor="@color/dateTextColorTeal900"
+            android:textSize="@dimen/text_article_published_date_size"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/text_article_section"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toLeftOf="@+id/text_article_section"
+            app:layout_constraintRight_toRightOf="@+id/text_article_section"
+            app:layout_constraintStart_toStartOf="@+id/text_article_section"
+            app:layout_constraintTop_toBottomOf="@+id/text_article_publisher"
+            tools:text="on Dec 18, 2017 at 10:11:25 GMT" />
+
+        <ImageButton
+            android:id="@+id/imgbtn_article_expand"
+            style="@style/NewsCardImageButtonsStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:srcCompat="@drawable/ic_news_item_expand" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

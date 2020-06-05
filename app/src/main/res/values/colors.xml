@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ================ -->
+    <!-- APP THEME COLORS -->
+    <!-- ================ -->
+    <color name="colorPrimary">#0D7CAD</color>
+    <color name="colorPrimaryDark">#00507D</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- ============================ -->
+    <!-- NEWS ARTICLES CONTENT COLORS -->
+    <!-- ============================ -->
+    <color name="sectionTextColor">#B82266</color>
+    <color name="trialTextColor">#0D7CAD</color>
+    <color name="titleTextColor">#00507D</color>
+    <color name="publisherTextColor">#333333</color>
+    <color name="dateTextColorTeal900">#004D40</color>
+
+    <!-- ==================== -->
+    <!-- SWIPE REFRESH COLORS -->
+    <!-- ==================== -->
+    <color name="colorGreen500">#4caf50</color>
+    <color name="colorIndigo500">#3f51b5</color>
+    <color name="colorPurple500">#9c27b0</color>
+    <color name="colorPink500">#e91e63</color>
+
+    <!-- Color used as a background when any News Item Cards are clicked -->
+    <color name="newsItemTouchColor">#FFF9C4</color>
+
+</resources>
