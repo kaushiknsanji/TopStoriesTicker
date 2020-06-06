@@ -24,22 +24,23 @@ object Networking {
 
     /**
      * Factory method that configures the [Retrofit] and
-     * provides an instance of the API for the [kClassService] given.
+     * provides an instance of the API for the [service] given.
      *
      * @param apiKey String containing the API Key
      * @param baseUrl String containing the Base URL of the API
      * @param cacheDir [File] location in the disk to be used for reading and writing cached responses
      * @param cacheSize [Long] value representing the Max size of the Cache in bytes
      *
-     * @return Instance of [kClassService] API
+     * @return Instance of [service] API
      */
+    @Suppress("UNCHECKED_CAST")
     fun <T : Any> createService(
         apiKey: String,
         baseUrl: String,
         cacheDir: File,
         cacheSize: Long,
-        kClassService: KClass<T>
-    ): KClass<T> = Retrofit.Builder() // Creating an Instance of Retrofit
+        service: KClass<T>
+    ): T = Retrofit.Builder() // Creating an Instance of Retrofit
         .baseUrl(baseUrl) //URL on which every endpoint will be appended
         .client(
             // Setting up HTTP Client using OkHttpClient
@@ -64,7 +65,7 @@ object Networking {
                             .url(
                                 // Rebuilding the URL with the API Key appended
                                 chain.request().url().newBuilder()
-                                    .addQueryParameter(QueryArgs.API_KEY, apiKey)
+                                    .addQueryParameter(QueryArgs.API_KEY, getApiKey(apiKey))
                                     .build()
                             ).build()
                     )
@@ -79,6 +80,16 @@ object Networking {
         .addConverterFactory(GsonConverterFactory.create())
         .build() // Generate the Retrofit instance
         // Create the API for the Service with the Retrofit Configuration
-        .create(kClassService::class.java)
+        .create(service::class.java) as T
+
+    /**
+     * Returns the default [QueryArgs.API_KEY_VAL_TEST] key to be used
+     * if the provided [apiKey] is empty.
+     */
+    private fun getApiKey(apiKey: String) = if (apiKey.isEmpty()) {
+        QueryArgs.API_KEY_VAL_TEST
+    } else {
+        apiKey
+    }
 
 }
