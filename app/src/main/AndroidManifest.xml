@@ -3,9 +3,13 @@
     package="com.kaushiknsanji.topstoriesticker">
 
     <!-- Internet permission to communicate with Remote API -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Permission to read network state -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".TopStoriesTickerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
