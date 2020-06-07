@@ -16,4 +16,11 @@
     </string>
     <string name="server_connection_error">Not able to connect, please retry again</string>
 
+
+    <!-- Default message shown when no authors are found for the Article -->
+    <string name="message_default_no_authors_found">Anonymous</string>
+
+    <!-- Default message shown when the Published Date of the Article is not available -->
+    <string name="message_default_no_published_date">Unknown Date</string>
+
 </resources>

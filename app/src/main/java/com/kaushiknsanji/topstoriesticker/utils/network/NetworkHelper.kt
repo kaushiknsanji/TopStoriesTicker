@@ -136,7 +136,7 @@ class NetworkHelper(private val context: Context) {
                 // For throwable of HttpException, prepare and return the NetworkError Instance from throwable errorBody
                 else -> GsonBuilder().excludeFieldsWithoutExposeAnnotation()
                     .create()
-                    .fromJson(throwable.response().errorBody()?.string(), NetworkError::class.java)
+                    .fromJson(throwable.response()?.errorBody()?.string(), NetworkError::class.java)
                     .copy(status = throwable.code())
             }
         } catch (e: IOException) {

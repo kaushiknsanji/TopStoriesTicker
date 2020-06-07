@@ -8,6 +8,8 @@ import com.kaushiknsanji.topstoriesticker.utils.network.NetworkHelper
  * [BaseViewModel] abstract subclass for providing abstraction to common tasks of RecyclerView's ItemViews.
  *
  * @param T The type of ItemView's data.
+ * @param networkHelper Instance of [NetworkHelper] provided by Dagger, to check
+ * network connectivity status and handle network related issues.
  *
  * @author Kaushik N Sanji
  */

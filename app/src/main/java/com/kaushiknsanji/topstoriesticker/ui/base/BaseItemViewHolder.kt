@@ -147,13 +147,13 @@ abstract class BaseItemViewHolder<T : Any, VM : BaseItemViewModel<T>>(
         showMessage(itemView.context.getString(messageResId))
 
     /**
-     * To be overridden by subclasses to setup the Layout of the [itemView].
-     */
-    protected abstract fun setupView(itemView: View)
-
-    /**
      * To be overridden by subclasses to inject dependencies exposed by [ViewHolderComponent] into [RecyclerView.ViewHolder].
      */
     protected abstract fun injectDependencies(viewHolderComponent: ViewHolderComponent)
+
+    /**
+     * To be overridden by subclasses to setup the Layout of the [itemView].
+     */
+    protected abstract fun setupView(itemView: View)
 
 }

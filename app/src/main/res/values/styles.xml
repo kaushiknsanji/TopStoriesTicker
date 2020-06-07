@@ -9,7 +9,9 @@
     </style>
 
     <!-- Style for Custom App Bar -->
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="liftOnScroll">true</item>
+    </style>
 
     <!-- Style for Popups in Custom App Bar -->
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
@@ -21,7 +23,7 @@
     <!-- STYLES USED FOR THE NEWS CONTENT CARD TILE -->
     <!-- ========================================== -->
     <style name="NewsItemCardStyle" parent="Widget.MaterialComponents.CardView">
-        <item name="cardForegroundColor">?android:selectableItemBackground</item>
+        <!--        <item name="cardForegroundColor">?android:selectableItemBackground</item>-->
         <item name="cardPreventCornerOverlap">true</item>
         <item name="cardUseCompatPadding">true</item>
     </style>

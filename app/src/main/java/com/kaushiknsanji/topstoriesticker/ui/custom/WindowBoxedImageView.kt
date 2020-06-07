@@ -3,6 +3,7 @@ package com.kaushiknsanji.topstoriesticker.ui.custom
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
@@ -16,8 +17,8 @@ import androidx.core.content.ContextCompat
  *
  * @author Kaushik N Sanji
  */
-class WindowBoxedImageView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    AppCompatImageView(context, attrs, defStyleAttr) {
+class WindowBoxedImageView(context: Context, attrs: AttributeSet? = null) :
+    AppCompatImageView(context, attrs) {
 
     companion object {
         // Constant for the Picture Zoom level in portrait mode
@@ -123,4 +124,15 @@ class WindowBoxedImageView(context: Context, attrs: AttributeSet? = null, defSty
         super.setImageResource(resId)
     }
 
+    /**
+     * Sets a Drawable as the content of this ImageView.
+     *
+     * @param drawable The drawable to set
+     */
+    override fun setImageDrawable(drawable: Drawable?) {
+        //Applying a black background for the black bar appearance
+        setBackgroundColor(ContextCompat.getColor(context, android.R.color.black))
+        //Propagating the call to super class
+        super.setImageDrawable(drawable)
+    }
 }

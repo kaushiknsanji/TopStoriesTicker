@@ -14,6 +14,9 @@ import dagger.Provides
 @Module
 class ViewHolderModule(private val viewHolder: BaseItemViewHolder<*, *>) {
 
+    /**
+     * Provides Singleton instance of [LifecycleRegistry] for [BaseItemViewHolder]
+     */
     @ViewHolderScope
     @Provides
     fun provideLifecycleRegistry(): LifecycleRegistry = LifecycleRegistry(viewHolder)

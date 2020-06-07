@@ -20,27 +20,38 @@ import javax.inject.Singleton
 @Module
 class ApplicationModule(private val application: TopStoriesTickerApplication) {
 
+    /**
+     * Provides [Singleton] instance of [TopStoriesTickerApplication]
+     */
     @Singleton
     @Provides
     fun provideApplication(): Application = application
 
+    /**
+     * Provides [Singleton] instance of [application] context
+     */
     @Singleton
     @ApplicationContext
     @Provides
     fun provideContext(): Context = application
 
+    /**
+     * Provides [Singleton] instance of [NetworkHelper]
+     */
     @Singleton
     @Provides
     fun provideNetworkHelper(): NetworkHelper = NetworkHelper(application)
 
+    /**
+     * Provides [Singleton] instance of [NewsService]
+     */
     @Singleton
     @Provides
     fun provideNewsService(): NewsService = Networking.createService(
         BuildConfig.GUARDIAN_API_KEY,
         BuildConfig.BASE_URL,
         application.cacheDir,
-        10 * 1024 * 1024, // 10MB Cache Size
-        NewsService::class
+        10 * 1024 * 1024 // 10MB Cache Size
     )
 
 }

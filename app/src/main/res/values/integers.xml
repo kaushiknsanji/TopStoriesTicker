@@ -2,8 +2,8 @@
 <resources>
     <!-- Maximum number of lines for the Title's Trailing Text under expanded view -->
     <integer name="text_article_trail_max_lines_expanded">6</integer>
-    <!-- Maximum number of lines for the Article's Publisher Text under collapsed view -->
-    <integer name="text_article_publisher_max_lines_collapsed">1</integer>
-    <!-- Maximum number of lines for the Article's Publisher Text under expanded view -->
-    <integer name="text_article_publisher_max_lines_expanded">2</integer>
+    <!-- Maximum number of lines for the Article's Author Text under collapsed view -->
+    <integer name="text_article_author_max_lines_collapsed">1</integer>
+    <!-- Maximum number of lines for the Article's Author Text under expanded view -->
+    <integer name="text_article_author_max_lines_expanded">2</integer>
 </resources>

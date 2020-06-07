@@ -24,6 +24,9 @@
     <color name="colorPurple500">#9c27b0</color>
     <color name="colorPink500">#e91e63</color>
 
+    <!-- Default Background color used in the App -->
+    <color name="defaultBackgroundColor">#F2F2F2</color>
+
     <!-- Color used as a background when any News Item Cards are clicked -->
     <color name="newsItemTouchColor">#FFF9C4</color>
 

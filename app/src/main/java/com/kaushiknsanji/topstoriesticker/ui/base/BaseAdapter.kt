@@ -16,15 +16,15 @@ import com.kaushiknsanji.topstoriesticker.ui.base.listeners.ListenerObservable
  * @param VH The type of ItemView's ViewHolder that extends [BaseItemViewHolder].
  * @param parentLifecycle The [Lifecycle] of a LifecycleOwner to observe on.
  * @param hostListener The Host of this Adapter that wishes to auto register/unregister as Listener of type [L]
- * for Navigation events. The Host should implement the listener of type [L] for this to work. Can be `null` if not required.
+ * for Navigation events. The Host should implement the listener of type [L] for this to work. Defaulted to `null`.
  * @property listenerObservable Instance of [ListenerObservable] that dispatches callback events to registered Listeners.
  *
  * @author Kaushik N Sanji
  */
 abstract class BaseAdapter<T : Any, L : BaseAdapter.DefaultListener<T>, VH : BaseItemViewHolder<T, out BaseItemViewModel<T>>>(
     parentLifecycle: Lifecycle,
-    hostListener: L?,
-    protected val listenerObservable: ListenerObservable<L>
+    hostListener: L? = null,
+    protected val listenerObservable: ListenerObservable<L> = ListenerObservable()
 ) : RecyclerView.Adapter<VH>() {
 
     // For the RecyclerView instance
@@ -140,8 +140,6 @@ abstract class BaseAdapter<T : Any, L : BaseAdapter.DefaultListener<T>, VH : Bas
                 override fun onChanged(position: Int, count: Int, payload: Any?) {
                     // Notify the changes to the adapter
                     notifyItemRangeChanged(position, count, payload)
-                    // Rebuild item decorations on RecyclerView
-                    invalidateItemDecorations()
                 }
 
                 /**
@@ -153,8 +151,6 @@ abstract class BaseAdapter<T : Any, L : BaseAdapter.DefaultListener<T>, VH : Bas
                 override fun onMoved(fromPosition: Int, toPosition: Int) {
                     // Notify the changes to the adapter
                     notifyItemMoved(fromPosition, toPosition)
-                    // Rebuild item decorations on RecyclerView
-                    invalidateItemDecorations()
                 }
 
                 /**
@@ -166,8 +162,6 @@ abstract class BaseAdapter<T : Any, L : BaseAdapter.DefaultListener<T>, VH : Bas
                 override fun onInserted(position: Int, count: Int) {
                     // Notify the changes to the adapter
                     notifyItemRangeInserted(position, count)
-                    // Rebuild item decorations on RecyclerView
-                    invalidateItemDecorations()
                 }
 
                 /**
@@ -179,21 +173,6 @@ abstract class BaseAdapter<T : Any, L : BaseAdapter.DefaultListener<T>, VH : Bas
                 override fun onRemoved(position: Int, count: Int) {
                     // Notify the changes to the adapter
                     notifyItemRangeRemoved(position, count)
-                    // Rebuild item decorations on RecyclerView
-                    invalidateItemDecorations()
-                }
-
-                /**
-                 * Rebuilds the Item Decorations on [recyclerView].
-                 */
-                private fun invalidateItemDecorations() {
-                    // Invalidate with a delay of 2ms, for the adapter item notifications to complete first
-                    recyclerView?.run {
-                        postDelayed(
-                            { invalidateItemDecorations() },
-                            2
-                        )
-                    }
                 }
 
             },
