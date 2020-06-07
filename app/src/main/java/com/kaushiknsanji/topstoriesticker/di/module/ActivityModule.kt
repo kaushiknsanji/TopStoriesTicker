@@ -1,9 +1,13 @@
 package com.kaushiknsanji.topstoriesticker.di.module
 
 import android.content.Context
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kaushiknsanji.topstoriesticker.di.ActivityContext
 import com.kaushiknsanji.topstoriesticker.ui.base.BaseActivity
+import com.kaushiknsanji.topstoriesticker.ui.main.MainViewModel
+import com.kaushiknsanji.topstoriesticker.utils.network.NetworkHelper
+import com.kaushiknsanji.topstoriesticker.utils.viewmodel.ViewModelProviderFactory
 import dagger.Module
 import dagger.Provides
 
@@ -27,5 +31,19 @@ class ActivityModule(private val activity: BaseActivity<*>) {
      */
     @Provides
     fun provideLinearLayoutManager(): LinearLayoutManager = LinearLayoutManager(activity)
+
+    /**
+     * Provides instance of [MainViewModel]
+     */
+    @Provides
+    fun provideMainViewModel(
+        networkHelper: NetworkHelper
+    ): MainViewModel = ViewModelProvider(
+        activity,
+        ViewModelProviderFactory(MainViewModel::class) {
+            // [creator] lambda that creates and returns the ViewModel instance
+            MainViewModel(networkHelper)
+        }
+    )[MainViewModel::class.java]
 
 }

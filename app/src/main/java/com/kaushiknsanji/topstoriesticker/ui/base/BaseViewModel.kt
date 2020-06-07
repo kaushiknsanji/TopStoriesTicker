@@ -11,6 +11,9 @@ import javax.net.ssl.HttpsURLConnection
 /**
  * An abstract base [ViewModel] for all the ViewModels in the app, that provides abstraction to common tasks.
  *
+ * @property networkHelper Instance of [NetworkHelper] provided by Dagger, to check
+ * network connectivity status and handle network related issues.
+ *
  * @author Kaushik N Sanji
  */
 abstract class BaseViewModel(

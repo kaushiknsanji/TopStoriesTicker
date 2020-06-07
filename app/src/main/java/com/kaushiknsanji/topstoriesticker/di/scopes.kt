@@ -17,3 +17,13 @@ import javax.inject.Scope
 @Scope
 @Retention(AnnotationRetention.SOURCE)
 annotation class ActivityScope
+
+/**
+ * [Scope] annotation for scoping the dependencies
+ * exposed by [com.kaushiknsanji.topstoriesticker.di.component.ViewHolderComponent]
+ * and for distinguishing with the scoped dependencies exposed by its component
+ * [com.kaushiknsanji.topstoriesticker.di.component.ApplicationComponent] dependency.
+ */
+@Scope
+@Retention(AnnotationRetention.SOURCE)
+annotation class ViewHolderScope
