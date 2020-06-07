@@ -18,6 +18,7 @@ package com.kaushiknsanji.topstoriesticker.ui.main
 
 import android.os.Bundle
 import android.os.Handler
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kaushiknsanji.topstoriesticker.R
 import com.kaushiknsanji.topstoriesticker.data.model.NewsArticle
@@ -111,10 +112,10 @@ class MainActivity : BaseActivity<MainViewModel>(), NewsAdapter.Listener {
             newsAdapter.submitList(articles)
         }
 
-        // Register an observer on each Article loading Event, to show the loading indication on the SwipeRefreshLayout
-        viewModel.articleLoadingProgress.observeEvent(this) { state: Boolean ->
+        // Register an observer on Downloading Progress LiveData, to show the loading indication on the SwipeRefreshLayout
+        viewModel.loadingProgress.observe(this, Observer { state: Boolean ->
             swipe_refresh_main.isRefreshing = state
-        }
+        })
 
         // Register an observer for Scroll to Top Event, to scroll to the topmost item in the RecyclerView
         viewModel.scrollToTop.observeEvent(this) {

@@ -42,12 +42,9 @@ class MainViewModel(
     private val newsRepository: NewsRepository
 ) : BaseViewModel(networkHelper) {
 
-    // LiveData for the complete data loading progress indication
-    private val loadingProgress: MutableLiveData<Boolean> = MutableLiveData()
-
-    // LiveData for each article loading progress indication
-    private val _articleLoadingProgress: MutableLiveData<Event<Boolean>> = MutableLiveData()
-    val articleLoadingProgress: LiveData<Event<Boolean>> = _articleLoadingProgress
+    // LiveData for downloading progress indication
+    private val _loadingProgress: MutableLiveData<Boolean> = MutableLiveData()
+    val loadingProgress: LiveData<Boolean> = _loadingProgress
 
     // LiveData for the list of Articles to be loaded/reloaded
     private val _liveArticles: MutableLiveData<Event<List<NewsArticle>>> = MutableLiveData()
@@ -86,8 +83,7 @@ class MainViewModel(
         // Delegate to handle any network related errors and display the same
         handleNetworkError(throwable)
         // Stop the loading indication on error
-        loadingProgress.postValue(false)
-        _articleLoadingProgress.postValue(Event(false))
+        _loadingProgress.postValue(false)
     }
 
     init {
@@ -99,17 +95,17 @@ class MainViewModel(
      * Callback method to be implemented, which will be called when this ViewModel's Activity/Fragment is created.
      */
     override fun onCreate() {
-        // Reload the list of articles downloaded till rotation
+        // Reload the list of articles already downloaded (if any)
         _liveArticles.postValue(Event(loadedArticlesList))
     }
 
     /**
      * Called when the user swipes down to refresh the list.
-     * Articles are downloaded again when [loadingProgress] is not active.
+     * Articles are downloaded again when [_loadingProgress] is not active.
      */
     fun onRefresh() {
-        // Checking for the ongoing progress if any
-        loadingProgress.value?.takeIf { !it }.let {
+        // Checking if there is no ongoing progress
+        _loadingProgress.value?.takeIf { !it }.let {
             // When the last download had completed
 
             // Clear the current list and publish to adapter
@@ -132,13 +128,12 @@ class MainViewModel(
             DateUtility.getDateStringForXDaysAgo(X_DAYS_AGO),
             NEWS_TICKER_DELAY
         )
-            .flowOn(Dispatchers.IO) // Execute Flow on the IO Dispatcher Context
+            .flowOn(Dispatchers.IO) // Context switched to IO for preceding operations
             .onStart {
-                // During start of each emission
+                // On Start of the Flow
 
                 // Start the loading indication
-                loadingProgress.postValue(true)
-                _articleLoadingProgress.postValue(Event(true))
+                _loadingProgress.postValue(true)
             }
             .onCompletion { cause: Throwable? ->
                 // On Completion of the Flow
@@ -146,8 +141,7 @@ class MainViewModel(
                 if (cause == null) {
                     // When there is no Error, then the Flow has completed successfully.
                     // Hence stop the loading indication
-                    loadingProgress.postValue(false)
-                    _articleLoadingProgress.postValue(Event(false))
+                    _loadingProgress.postValue(false)
                 } else {
                     // When there is an error, show and log the error
                     onError(cause)
