@@ -51,8 +51,8 @@ class NewsItemViewHolder(
 ) : BaseItemViewHolder<NewsArticle, NewsItemViewModel>(R.layout.item_main, container, listener) {
 
     // Rotate Animators for TextView Expand/Collapse ImageButton anchor
-    lateinit var rotateTo180Anim: Animator
-    lateinit var rotateTo0Anim: Animator
+    private lateinit var rotateTo180Anim: Animator
+    private lateinit var rotateTo0Anim: Animator
 
     /**
      * Injects dependencies exposed by [ViewHolderComponent] into [androidx.recyclerview.widget.RecyclerView.ViewHolder].
@@ -74,9 +74,6 @@ class NewsItemViewHolder(
         // Initialize the Animators for Expand/Collapse image button
         rotateTo180Anim = AnimatorInflater.loadAnimator(itemView.context, R.animator.rotate_0_180)
         rotateTo0Anim = AnimatorInflater.loadAnimator(itemView.context, R.animator.rotate_180_0)
-
-        // Update the state of content expand button
-        updateContentExpandButton()
     }
 
     /**
@@ -164,7 +161,13 @@ class NewsItemViewHolder(
 
         // Register an observer on the Trail Text LiveData to set its value on corresponding textView
         itemViewModel.trailText.observe(this, Observer { trailText ->
-            itemView.text_article_trail.text = TextAppearanceUtility.getHtmlFormattedText(trailText)
+            itemView.text_article_trail.apply {
+                // Set text
+                text = TextAppearanceUtility.getHtmlFormattedText(trailText)
+                // Hide the view after update
+                visibility = View.GONE
+            }
+
             // Update the state of content expand button
             updateContentExpandButton()
         })
