@@ -18,6 +18,8 @@ package com.kaushiknsanji.topstoriesticker.utils.common
 
 /**
  * Sealed Class used as Statuses with content wrapped in [dataEvent].
+ * The content that is wrapped, generally references to Android/App Resource Ids.
+ * In certain cases, hardcoded Strings may be passed. Hence the name [Resource].
  *
  * @param T the type of content wrapped in the [dataEvent] of this [Resource]
  * @property status [Status] metadata information

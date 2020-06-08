@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 /**
  * Data class used as a wrapper to the [content] representing the [Event]s emitted by a [LiveData].
  *
- * @param T The type of [content] wrapped in an [Event]
+ * @param T The type of [content] wrapped in an [Event]. Cannot be `null`.
  * @property content The wrapped private data of an [Event]
  * @constructor Creates an Instance of [Event]
  *
