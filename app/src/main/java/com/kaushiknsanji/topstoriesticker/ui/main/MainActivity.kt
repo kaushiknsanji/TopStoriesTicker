@@ -18,7 +18,6 @@ package com.kaushiknsanji.topstoriesticker.ui.main
 
 import android.os.Bundle
 import android.os.Handler
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kaushiknsanji.topstoriesticker.R
 import com.kaushiknsanji.topstoriesticker.data.model.NewsArticle
@@ -27,6 +26,7 @@ import com.kaushiknsanji.topstoriesticker.ui.base.BaseActivity
 import com.kaushiknsanji.topstoriesticker.ui.main.news.NewsAdapter
 import com.kaushiknsanji.topstoriesticker.utils.common.IntentUtility
 import com.kaushiknsanji.topstoriesticker.utils.common.observeEvent
+import com.kaushiknsanji.topstoriesticker.utils.common.observeNonNull
 import com.kaushiknsanji.topstoriesticker.utils.widget.VerticalListItemSpacingDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -113,9 +113,9 @@ class MainActivity : BaseActivity<MainViewModel>(), NewsAdapter.Listener {
         }
 
         // Register an observer on Downloading Progress LiveData, to show the loading indication on the SwipeRefreshLayout
-        viewModel.loadingProgress.observe(this, Observer { state: Boolean ->
+        viewModel.loadingProgress.observeNonNull(this) { state: Boolean ->
             swipe_refresh_main.isRefreshing = state
-        })
+        }
 
         // Register an observer for Scroll to Top Event, to scroll to the topmost item in the RecyclerView
         viewModel.scrollToTop.observeEvent(this) {

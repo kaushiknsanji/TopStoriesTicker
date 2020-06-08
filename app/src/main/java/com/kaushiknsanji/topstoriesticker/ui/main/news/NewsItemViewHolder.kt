@@ -23,16 +23,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.lifecycle.Observer
 import androidx.transition.TransitionManager
 import com.bumptech.glide.request.RequestOptions
 import com.kaushiknsanji.topstoriesticker.R
 import com.kaushiknsanji.topstoriesticker.data.model.NewsArticle
 import com.kaushiknsanji.topstoriesticker.di.component.ViewHolderComponent
 import com.kaushiknsanji.topstoriesticker.ui.base.BaseItemViewHolder
-import com.kaushiknsanji.topstoriesticker.utils.common.DateUtility
-import com.kaushiknsanji.topstoriesticker.utils.common.GlideApp
-import com.kaushiknsanji.topstoriesticker.utils.common.observeEvent
+import com.kaushiknsanji.topstoriesticker.utils.common.*
 import com.kaushiknsanji.topstoriesticker.utils.display.TextAppearanceUtility
 import kotlinx.android.synthetic.main.item_main.view.*
 
@@ -142,25 +139,25 @@ class NewsItemViewHolder(
         super.setupObservers()
 
         // Register an observer on the Section Name LiveData to set its value on corresponding textView
-        itemViewModel.sectionName.observe(this, Observer { sectionName ->
+        itemViewModel.sectionName.observeNull(this) { sectionName ->
             itemView.text_article_section.text = sectionName
-        })
+        }
 
         // Register an observer on the Title LiveData to set its value on corresponding textView
-        itemViewModel.title.observe(this, Observer { title ->
+        itemViewModel.title.observeNull(this) { title ->
             itemView.text_article_title.text = title
-        })
+        }
 
         // Register an observer on the Published Date LiveData to set its value on corresponding textView
-        itemViewModel.publishedDate.observe(this, Observer { publishedDateStr ->
+        itemViewModel.publishedDate.observeNull(this) { publishedDateStr ->
             itemView.text_article_published_date.text = DateUtility.getFormattedPublishedDate(
                 publishedDateStr,
                 itemView.resources.getString(R.string.message_default_no_published_date)
             )
-        })
+        }
 
         // Register an observer on the Trail Text LiveData to set its value on corresponding textView
-        itemViewModel.trailText.observe(this, Observer { trailText ->
+        itemViewModel.trailText.observeNonNull(this) { trailText ->
             itemView.text_article_trail.apply {
                 // Set text
                 text = TextAppearanceUtility.getHtmlFormattedText(trailText)
@@ -170,19 +167,19 @@ class NewsItemViewHolder(
 
             // Update the state of content expand button
             updateContentExpandButton()
-        })
+        }
 
         // Register an observer on the Author LiveData to set its value on corresponding textView
-        itemViewModel.author.observe(this, Observer { author ->
+        itemViewModel.author.observeNull(this) { author ->
             itemView.text_article_author.text = if (author.isNullOrEmpty()) {
                 itemView.resources.getString(R.string.message_default_no_authors_found)
             } else {
                 author
             }
-        })
+        }
 
         // Register an observer on the Thumbnail LiveData to set its Image on corresponding ImageView
-        itemViewModel.thumbnail.observe(this, Observer { thumbnailUrl ->
+        itemViewModel.thumbnail.observeNull(this) { thumbnailUrl ->
             itemView.run {
                 if (!thumbnailUrl.isNullOrEmpty()) {
                     // When we have the Image Url
@@ -207,7 +204,7 @@ class NewsItemViewHolder(
 
                 }
             }
-        })
+        }
 
         // Register an observer on the User's Click action on News Article card
         itemViewModel.actionItemClick.observeEvent(this) { article: NewsArticle ->
