@@ -35,7 +35,7 @@ import androidx.lifecycle.Observer
  * @param owner The [LifecycleOwner] which controls the observer.
  * @param onEventUnconsumedContent The lambda action to be executed on the content [T].
  */
-inline fun <T> LiveData<Event<T>>.observeEvent(
+inline fun <T : Any> LiveData<Event<T>>.observeEvent(
     owner: LifecycleOwner,
     crossinline onEventUnconsumedContent: (data: T) -> Unit
 ) {
@@ -53,7 +53,7 @@ inline fun <T> LiveData<Event<T>>.observeEvent(
  * @param owner The [LifecycleOwner] which controls the observer.
  * @param onEventAction The lambda action to be executed on the content [T] based on [Resource.status].
  */
-inline fun <T> LiveData<Resource<T>>.observeResource(
+inline fun <T : Any?> LiveData<Resource<T>>.observeResource(
     owner: LifecycleOwner,
     crossinline onEventAction: (status: Status, data: T?) -> Unit
 ) {
@@ -71,7 +71,7 @@ inline fun <T> LiveData<Resource<T>>.observeResource(
  * @param owner The [LifecycleOwner] which controls the observer.
  * @param onEventUnconsumedContent The lambda action to be executed on the content [T] based on [Resource.status].
  */
-inline fun <T> LiveData<Resource<T>>.observeResourceEvent(
+inline fun <T : Any> LiveData<Resource<T>>.observeResourceEvent(
     owner: LifecycleOwner,
     crossinline onEventUnconsumedContent: (status: Status, data: T) -> Unit
 ) {
@@ -91,7 +91,7 @@ inline fun <T> LiveData<Resource<T>>.observeResourceEvent(
  * @param owner The [LifecycleOwner] which controls the observer.
  * @param action The lambda action to be executed on the Nullable content [T].
  */
-inline fun <T> LiveData<T>.observeNull(
+inline fun <T : Any?> LiveData<T>.observeNull(
     owner: LifecycleOwner,
     crossinline action: (data: T?) -> Unit
 ) {
@@ -109,7 +109,7 @@ inline fun <T> LiveData<T>.observeNull(
  * @param owner The [LifecycleOwner] which controls the observer.
  * @param action The lambda action to be executed on the content [T] when it is `NOT NULL`.
  */
-inline fun <T> LiveData<T>.observeNonNull(
+inline fun <T : Any?> LiveData<T>.observeNonNull(
     owner: LifecycleOwner,
     crossinline action: (data: T) -> Unit
 ) {
