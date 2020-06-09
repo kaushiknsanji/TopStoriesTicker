@@ -30,6 +30,8 @@ import com.kaushiknsanji.topstoriesticker.di.component.ViewHolderComponent
 import com.kaushiknsanji.topstoriesticker.ui.base.BaseItemViewHolder
 import com.kaushiknsanji.topstoriesticker.utils.common.*
 import com.kaushiknsanji.topstoriesticker.utils.display.TextAppearanceUtility
+import com.kaushiknsanji.topstoriesticker.utils.display.hide
+import com.kaushiknsanji.topstoriesticker.utils.display.show
 import kotlinx.android.synthetic.main.item_main.view.*
 
 /**
@@ -83,7 +85,7 @@ class NewsItemViewHolder(
         if (authorTextEllipseCount > 0 || !itemView.text_article_trail.text.isNullOrEmpty()) {
             // Make the Content Expand Button visible when the Author Text is ellipsized
             // or the Title Trail Text is present
-            itemView.imgbtn_article_expand.visibility = View.VISIBLE
+            itemView.imgbtn_article_expand.show()
 
             // Look for the Tag object to see if the image was rotated/expanded
             val contentExpandButtonTagObj = itemView.imgbtn_article_expand.tag
@@ -106,7 +108,7 @@ class NewsItemViewHolder(
         } else {
             // Hide the Content Expand Button when the Author Text is NOT ellipsized
             // and the Title Trail Text is NOT present
-            itemView.imgbtn_article_expand.visibility = View.GONE
+            itemView.imgbtn_article_expand.hide()
         }
     }
 
@@ -161,7 +163,7 @@ class NewsItemViewHolder(
                 // Set text
                 text = TextAppearanceUtility.getHtmlFormattedText(trailText)
                 // Hide the view after update
-                visibility = View.GONE
+                hide()
             }
 
             // Reset the state of content expand button
@@ -192,7 +194,7 @@ class NewsItemViewHolder(
                     // When we have the Image Url
 
                     // Ensure the ImageView is shown
-                    image_article_thumb.visibility = View.VISIBLE
+                    image_article_thumb.show()
 
                     // Download and set the Image using Glide
                     GlideApp.with(itemView) // Loading with ItemView's context
@@ -207,7 +209,7 @@ class NewsItemViewHolder(
                     image_article_thumb.setImageResource(R.drawable.ic_news_thumbnail)
 
                     // Hide the ImageView
-                    image_article_thumb.visibility = View.GONE
+                    image_article_thumb.hide()
 
                 }
             }
@@ -247,7 +249,7 @@ class NewsItemViewHolder(
 
         if (!trailTextView.text.isNullOrEmpty()) {
             // Update the Trailing Text state only when there is Trailing Text Content
-            trailTextExpandState = (trailTextView.visibility == View.VISIBLE)
+            trailTextExpandState = trailTextView.isShown
         }
 
         // Retrieve the Max Lines count setting of the Author TextView in Collapsed state
@@ -264,7 +266,7 @@ class NewsItemViewHolder(
             // Collapse/Hide the content as they are in expanded state
 
             // Hide the content of Trailing Text
-            trailTextView.visibility = View.GONE
+            trailTextView.hide()
 
             // Apply the Transition Animation for collapse (After hiding the Trailing Text)
             TransitionManager.beginDelayedTransition(containerViewGroup)
@@ -286,7 +288,7 @@ class NewsItemViewHolder(
 
             // Reveal the content of Trailing Text if any
             if (!trailTextView.text.isNullOrEmpty()) {
-                trailTextView.visibility = View.VISIBLE
+                trailTextView.show()
             }
 
             // Set the Max Lines on Author Text to a higher number for expanding content
