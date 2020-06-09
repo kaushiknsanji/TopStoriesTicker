@@ -65,9 +65,13 @@ class NewsItemViewModel @Inject constructor(
     private val _actionItemClick: MutableLiveData<Event<NewsArticle>> = MutableLiveData()
     val actionItemClick: LiveData<Event<NewsArticle>> = _actionItemClick
 
-    // LiveData for Item Expand/Collapse button
+    // LiveData for Item Expand/Collapse button Click event
     private val _actionItemExpandCollapseClick: MutableLiveData<Event<Boolean>> = MutableLiveData()
     val actionItemExpandCollapseClick: LiveData<Event<Boolean>> = _actionItemExpandCollapseClick
+
+    // LiveData for Reset Content Expand State events to reset the Expand/Collapse button
+    private val _resetContentExpandState: MutableLiveData<Event<Boolean>> = MutableLiveData()
+    val resetContentExpandState: LiveData<Event<Boolean>> = _resetContentExpandState
 
     /**
      * Callback method to be implemented, which will be called when this ViewModel's Activity/Fragment is created.
@@ -96,6 +100,15 @@ class NewsItemViewModel @Inject constructor(
         itemData.value?.let {
             _actionItemExpandCollapseClick.postValue(Event(true))
         }
+    }
+
+    /**
+     * Called when the "Trail Text" and the "Author Text" is set on their TextView.
+     * Triggers an Event to reset the Expand/Collapse Button based on the
+     * presence of "Trail Text" content and "Author Text" length
+     */
+    fun onUpdateContentResetExpandState() {
+        _resetContentExpandState.postValue(Event(true))
     }
 
 }

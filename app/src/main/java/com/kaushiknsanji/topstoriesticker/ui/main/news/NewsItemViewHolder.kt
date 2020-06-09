@@ -18,7 +18,6 @@ package com.kaushiknsanji.topstoriesticker.ui.main.news
 
 import android.animation.Animator
 import android.animation.AnimatorInflater
-import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
@@ -74,14 +73,14 @@ class NewsItemViewHolder(
     }
 
     /**
-     * Method that updates the state of the Content Expand Button 'R.id.imgbtn_article_expand'
+     * Method that resets the state of the Content Expand Button 'R.id.imgbtn_article_expand'
      * based on the presence of Trailing Text content and Author Text length
      */
-    private fun updateContentExpandButton() {
+    private fun resetContentExpandButton() {
         // Retrieve the Ellipse count for the Text in Author TextView
         val authorTextEllipseCount: Int = getEllipseCountFromAuthorTextView()
 
-        if (authorTextEllipseCount > 0 || !TextUtils.isEmpty(itemView.text_article_trail.text)) {
+        if (authorTextEllipseCount > 0 || !itemView.text_article_trail.text.isNullOrEmpty()) {
             // Make the Content Expand Button visible when the Author Text is ellipsized
             // or the Title Trail Text is present
             itemView.imgbtn_article_expand.visibility = View.VISIBLE
@@ -101,7 +100,7 @@ class NewsItemViewHolder(
 
                 // Reset the Max Lines on Author Text
                 itemView.text_article_author.maxLines = itemView.context.resources.getInteger(
-                    R.integer.text_article_author_max_lines_expanded
+                    R.integer.text_article_author_max_lines_collapsed
                 )
             }
         } else {
@@ -165,8 +164,8 @@ class NewsItemViewHolder(
                 visibility = View.GONE
             }
 
-            // Update the state of content expand button
-            updateContentExpandButton()
+            // Reset the state of content expand button
+            itemViewModel.onUpdateContentResetExpandState()
         }
 
         // Register an observer on the Author LiveData to set its value on corresponding textView
@@ -176,6 +175,14 @@ class NewsItemViewHolder(
             } else {
                 author
             }
+
+            // Reset the state of content expand button
+            itemViewModel.onUpdateContentResetExpandState()
+        }
+
+        // Register an observer on Reset Content Expand State Events, to reset the Expand/Collapse Button
+        itemViewModel.resetContentExpandState.observeEvent(this) {
+            resetContentExpandButton()
         }
 
         // Register an observer on the Thumbnail LiveData to set its Image on corresponding ImageView
