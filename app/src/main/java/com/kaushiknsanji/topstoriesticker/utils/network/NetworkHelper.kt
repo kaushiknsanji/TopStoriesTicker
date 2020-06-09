@@ -19,6 +19,7 @@ package com.kaushiknsanji.topstoriesticker.utils.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
+import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Build
 import androidx.lifecycle.MutableLiveData
@@ -49,7 +50,9 @@ class NetworkHelper(private val context: Context) {
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     // LiveData that maintains the current connectivity status
-    private val _connectedLiveStatus = MutableLiveData(false)
+    // (Starts with the initial connectivity status)
+    private val _connectedLiveStatus: MutableLiveData<Boolean> =
+        MutableLiveData(getInitialConnectivityStatus())
 
     // Callback for receiving events when any network's connectivity changes
     private val connectivityCallback = object : ConnectivityManager.NetworkCallback() {
@@ -103,7 +106,7 @@ class NetworkHelper(private val context: Context) {
     }
 
     init {
-        // Try unregistering any previous registered callbacks
+        // Try unregistering any previously registered callbacks
         try {
             connectivityManager.unregisterNetworkCallback(connectivityCallback)
         } catch (e: Exception) {
@@ -120,7 +123,7 @@ class NetworkHelper(private val context: Context) {
     }
 
     /**
-     * Returns `true` if the Network is established; `false` otherwise
+     * Returns `true` if the Network is established; `false` otherwise.
      */
     fun isNetworkConnected(): Boolean = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         // For version M and above
@@ -130,10 +133,41 @@ class NetworkHelper(private val context: Context) {
     } else {
         // For version below M
 
+        // Read the status from activeNetworkInfo
+        getConnectivityStatusTheOldWay()
+    }
+
+    /**
+     * Method used to get the Network connectivity status on launch. This is required since the
+     * registered Network callback updates respond later (not immediately).
+     * Returns `true` if the Network is established; `false` otherwise.
+     */
+    private fun getInitialConnectivityStatus(): Boolean =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // For version M and above
+
+            // Establish if the current active network has capability for network connection
+            connectivityManager.activeNetwork?.let { activeNetwork ->
+                connectivityManager.getNetworkCapabilities(activeNetwork)
+                    ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED) ?: false
+            } ?: false
+
+        } else {
+            // For version below M
+
+            // Read the status from activeNetworkInfo
+            getConnectivityStatusTheOldWay()
+        }
+
+    /**
+     * Checks Network connectivity the old way using [ConnectivityManager.getActiveNetworkInfo].
+     * Returns `true` if the Network is established; `false` otherwise.
+     */
+    private fun getConnectivityStatusTheOldWay(): Boolean {
         // Get the current active default data network in old style
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         // Check the connectivity status and return its state
-        activeNetworkInfo?.isConnected ?: false
+        return activeNetworkInfo?.isConnected ?: false
     }
 
     /**

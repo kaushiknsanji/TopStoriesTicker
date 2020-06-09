@@ -60,7 +60,7 @@ abstract class BaseViewModel(
             true
         } else {
             // Post an error message when not connected
-            _messageStringId.postValue(Resource.Error(R.string.network_connection_error))
+            _messageStringId.postValue(Resource.Error(R.string.error_network_connection_issue))
             false
         }
 
@@ -73,15 +73,15 @@ abstract class BaseViewModel(
             networkHelper.castToNetworkError(err).run {
                 when (status) {
                     // For default error
-                    -1 -> _messageStringId.postValue(Resource.Error(R.string.network_default_error))
+                    -1 -> _messageStringId.postValue(Resource.Error(R.string.error_network_default_issue))
                     // For Connect exceptions
-                    0 -> _messageStringId.postValue(Resource.Error(R.string.server_connection_error))
+                    0 -> _messageStringId.postValue(Resource.Error(R.string.error_network_server_connection_issue))
                     // For HTTP 500 error
                     HttpsURLConnection.HTTP_INTERNAL_ERROR ->
-                        _messageStringId.postValue(Resource.Error(R.string.network_internal_error))
+                        _messageStringId.postValue(Resource.Error(R.string.error_network_internal_issue))
                     // For HTTP 503 error
                     HttpsURLConnection.HTTP_UNAVAILABLE ->
-                        _messageStringId.postValue(Resource.Error(R.string.network_server_not_available))
+                        _messageStringId.postValue(Resource.Error(R.string.error_network_server_not_available_issue))
                     // For other errors
                     else -> _messageString.postValue(Resource.Error(message))
                 }

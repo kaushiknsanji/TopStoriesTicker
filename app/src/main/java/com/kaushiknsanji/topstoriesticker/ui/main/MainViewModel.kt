@@ -35,6 +35,12 @@ import kotlinx.coroutines.launch
 /**
  * [BaseViewModel] subclass for [MainActivity].
  *
+ * @param networkHelper Instance of [NetworkHelper] provided by Dagger, to check
+ * network connectivity status and handle network related issues.
+ * @property newsRepository Instance of [NewsRepository] provided by Dagger, for the News
+ * from Guardian News API.
+ * @constructor Instance of [MainViewModel] created and provided by Dagger.
+ *
  * @author Kaushik N Sanji
  */
 class MainViewModel(
@@ -108,10 +114,6 @@ class MainViewModel(
         _loadingProgress.value?.takeIf { !it }.let {
             // When the last download had completed
 
-            // Clear the current list and publish to adapter
-            loadedArticlesList.clear()
-            _liveArticles.postValue(Event(loadedArticlesList))
-
             // Start the download of News Articles again
             fetchEditorsPicks()
         }
@@ -123,43 +125,54 @@ class MainViewModel(
      */
     private fun fetchEditorsPicks() = viewModelScope.launch(networkExceptionHandler) {
 
-        // Get the list of News Articles from the Remote API
-        newsRepository.doFetchEditorsPicks(
-            DateUtility.getDateStringForXDaysAgo(X_DAYS_AGO),
-            NEWS_TICKER_DELAY
-        )
-            .flowOn(Dispatchers.IO) // Context switched to IO for preceding operations
-            .onStart {
-                // On Start of the Flow
+        // Proceed when we have network connectivity, else show an error message
+        if (checkInternetConnectionWithMessage()) {
+            // Before starting, clear the current list and publish to adapter
+            loadedArticlesList.clear()
+            _liveArticles.postValue(Event(loadedArticlesList))
 
-                // Start the loading indication
-                _loadingProgress.postValue(true)
-            }
-            .onCompletion { cause: Throwable? ->
-                // On Completion of the Flow
+            // Get the list of News Articles from the Remote API
+            newsRepository.doFetchEditorsPicks(
+                DateUtility.getDateStringForXDaysAgo(X_DAYS_AGO),
+                NEWS_TICKER_DELAY
+            )
+                .flowOn(Dispatchers.IO) // Context switched to IO for preceding operations
+                .onStart {
+                    // On Start of the Flow
 
-                if (cause == null) {
-                    // When there is no Error, then the Flow has completed successfully.
-                    // Hence stop the loading indication
-                    _loadingProgress.postValue(false)
-                } else {
+                    // Start the loading indication
+                    _loadingProgress.postValue(true)
+                }
+                .onCompletion { cause: Throwable? ->
+                    // On Completion of the Flow
+
+                    if (cause == null) {
+                        // When there is no Error, then the Flow has completed successfully.
+                        // Hence stop the loading indication
+                        _loadingProgress.postValue(false)
+                    } else {
+                        // When there is an error, show and log the error
+                        onError(cause)
+                    }
+                }
+                .catch { cause: Throwable -> // Catch exceptions thrown by preceding operations
                     // When there is an error, show and log the error
                     onError(cause)
                 }
-            }
-            .catch { cause: Throwable ->
-                // When there is an error, show and log the error
-                onError(cause)
-            }
-            .collect { article: NewsArticle ->
-                // Load the New Article at the top of the list
-                loadedArticlesList.add(0, article)
-                // Publish to the adapter
-                _liveArticles.postValue(Event(loadedArticlesList)).also {
-                    // Scroll to top after publish
-                    _scrollToTop.postValue(Event(true))
+                .collect { article: NewsArticle ->
+                    // Load the New Article at the top of the list
+                    loadedArticlesList.add(0, article)
+                    // Publish to the adapter
+                    _liveArticles.postValue(Event(loadedArticlesList)).also {
+                        // Scroll to top after publish
+                        _scrollToTop.postValue(Event(true))
+                    }
                 }
-            }
+        } else {
+            // When there is no connection, ensure the loading indication is stopped
+            // (Note: Loading indication also starts on user initiated swipe-to-refresh)
+            _loadingProgress.postValue(false)
+        }
 
     }
 

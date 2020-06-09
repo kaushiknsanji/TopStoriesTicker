@@ -18,24 +18,24 @@
     <!-- Name of the App -->
     <string name="app_name">TopStoriesTicker</string>
 
-    <!-- Content Description for the Expand/Collapse Image Button -->
-    <string name="cd_imgbtn_article_expand">Expand/Collapse button</string>
-
     <!-- ============================ -->
     <!-- NETWORK CONNECTIVITY STRINGS -->
     <!-- ============================ -->
-    <string name="network_connection_error">Internet connection lost, please retry again</string>
-    <string name="network_default_error">Something wrong happened, please retry again</string>
-    <string name="network_internal_error">Our systems got an error, please retry again</string>
-    <string name="network_server_not_available">
+    <string name="error_network_connection_issue">Internet connection lost, please retry again</string>
+    <string name="error_network_default_issue">Something wrong happened, please retry again</string>
+    <string name="error_network_internal_issue">Our systems got an error, please retry again</string>
+    <string name="error_network_server_not_available_issue">
         Our services are under maintenance, please retry after some time
     </string>
-    <string name="server_connection_error">Not able to connect, please retry again</string>
+    <string name="error_network_server_connection_issue">Not able to connect, please retry again</string>
 
-
+    <!-- ============================= -->
+    <!-- STRINGS USED IN MAIN ACTIVITY -->
+    <!-- ============================= -->
+    <!-- Content Description for the Expand/Collapse Image Button -->
+    <string name="cd_imgbtn_article_expand">Expand/Collapse button</string>
     <!-- Default message shown when no authors are found for the Article -->
     <string name="message_default_no_authors_found">Anonymous</string>
-
     <!-- Default message shown when the Published Date of the Article is not available -->
     <string name="message_default_no_published_date">Unknown Date</string>
 

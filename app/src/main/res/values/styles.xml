@@ -39,7 +39,6 @@
     <!-- STYLES USED FOR THE NEWS CONTENT CARD TILE -->
     <!-- ========================================== -->
     <style name="NewsItemCardStyle" parent="Widget.MaterialComponents.CardView">
-        <!--        <item name="cardForegroundColor">?android:selectableItemBackground</item>-->
         <item name="cardPreventCornerOverlap">true</item>
         <item name="cardUseCompatPadding">true</item>
     </style>

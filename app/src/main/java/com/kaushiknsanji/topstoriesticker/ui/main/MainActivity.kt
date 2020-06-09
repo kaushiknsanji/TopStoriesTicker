@@ -94,7 +94,7 @@ class MainActivity : BaseActivity<MainViewModel>(), NewsAdapter.Listener {
 
             // Register a Listener on the Swipe refresh
             setOnRefreshListener {
-                // Delegate to the ViewModel to reload the content
+                // Delegate to the ViewModel to refresh the content
                 viewModel.onRefresh()
             }
         }
