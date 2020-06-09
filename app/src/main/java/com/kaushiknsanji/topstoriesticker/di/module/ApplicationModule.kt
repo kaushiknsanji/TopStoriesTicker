@@ -67,7 +67,8 @@ class ApplicationModule(private val application: TopStoriesTickerApplication) {
         BuildConfig.GUARDIAN_API_KEY,
         BuildConfig.BASE_URL,
         application.cacheDir,
-        10 * 1024 * 1024 // 10MB Cache Size
+        10 * 1024 * 1024, // 10MB Cache Size
+        NewsService::class.java
     )
 
 }
