@@ -36,7 +36,6 @@ class NewsRepository @Inject constructor(
     private val newsService: NewsService
 ) {
 
-
     /**
      * Performs "Editors Picks" request with the Remote API from the start date as [fromDate]
      * and returns a [kotlinx.coroutines.flow.Flow]
@@ -71,6 +70,5 @@ class NewsRepository @Inject constructor(
                 kotlinx.coroutines.delay(newsTickerDelay)
             }
     }
-
 
 }

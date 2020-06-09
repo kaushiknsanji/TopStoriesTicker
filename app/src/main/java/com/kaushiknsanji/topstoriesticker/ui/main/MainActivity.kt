@@ -19,6 +19,7 @@ package com.kaushiknsanji.topstoriesticker.ui.main
 import android.os.Bundle
 import android.os.Handler
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.kaushiknsanji.topstoriesticker.R
 import com.kaushiknsanji.topstoriesticker.data.model.NewsArticle
 import com.kaushiknsanji.topstoriesticker.di.component.ActivityComponent
@@ -28,6 +29,8 @@ import com.kaushiknsanji.topstoriesticker.utils.common.IntentUtility
 import com.kaushiknsanji.topstoriesticker.utils.common.observeEvent
 import com.kaushiknsanji.topstoriesticker.utils.common.observeNonNull
 import com.kaushiknsanji.topstoriesticker.utils.widget.VerticalListItemSpacingDecoration
+import com.kaushiknsanji.topstoriesticker.utils.widget.getFirstVisibleItemPosition
+import com.kaushiknsanji.topstoriesticker.utils.widget.smoothVScrollToPositionWithViewTop
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -130,6 +133,15 @@ class MainActivity : BaseActivity<MainViewModel>(), NewsAdapter.Listener {
             IntentUtility.openLink(this, article.webUrl)
         }
 
+        // Register an observer on Last Scrolled Position Events to restore the
+        // scrolled position on RecyclerView
+        viewModel.lastScrolledPosition.observeEvent(this) { scrollToPosition: Int ->
+            // Scroll to top after 10ms in order to allow the RecyclerView to load the list
+            Handler().postDelayed({
+                rv_main.smoothVScrollToPositionWithViewTop(scrollToPosition)
+            }, 10)
+        }
+
     }
 
     /**
@@ -139,6 +151,20 @@ class MainActivity : BaseActivity<MainViewModel>(), NewsAdapter.Listener {
      */
     override fun onItemClick(itemData: NewsArticle) {
         viewModel.onItemClick(itemData)
+    }
+
+    /**
+     * Called when no longer visible to the user.
+     */
+    override fun onStop() {
+        super.onStop()
+
+        // Delegate to the ViewModel to save and restore the scrolled position later,
+        // only if the position is valid
+        rv_main.getFirstVisibleItemPosition().takeIf { it > RecyclerView.NO_POSITION }?.let {
+            viewModel.saveLastScrolledPosition(it)
+        }
+
     }
 
 }

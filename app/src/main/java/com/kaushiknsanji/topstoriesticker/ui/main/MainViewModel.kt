@@ -72,6 +72,10 @@ class MainViewModel(
     private val _launchArticle: MutableLiveData<Event<NewsArticle>> = MutableLiveData()
     val launchArticle: LiveData<Event<NewsArticle>> = _launchArticle
 
+    // LiveData for saving and restoring the last scrolled position on the RecyclerView
+    private val _lastScrolledPosition: MutableLiveData<Event<Int>> = MutableLiveData()
+    val lastScrolledPosition: LiveData<Event<Int>> = _lastScrolledPosition
+
     // Coroutine Exception Handler
     private val networkExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         // Show and log the error
@@ -183,6 +187,22 @@ class MainViewModel(
      */
     fun onItemClick(article: NewsArticle) {
         _launchArticle.postValue(Event(article))
+    }
+
+    /**
+     * Called when there is a change in the configuration of the App, like on screen rotation,
+     * in order to save and restore the scrolled position later.
+     *
+     * Triggers an event to restore the scrolled position if there is no ongoing progress.
+     */
+    fun saveLastScrolledPosition(firstVisibleItemPosition: Int) {
+        // Checking if there is no ongoing progress
+        _loadingProgress.value?.takeIf { !it }.let {
+            // When the last download had already completed
+
+            // Trigger an event to restore the scrolled position
+            _lastScrolledPosition.postValue(Event(firstVisibleItemPosition))
+        }
     }
 
     companion object {

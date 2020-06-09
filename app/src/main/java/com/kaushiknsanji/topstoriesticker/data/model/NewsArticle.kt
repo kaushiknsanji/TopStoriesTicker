@@ -21,6 +21,8 @@ import com.google.gson.annotations.SerializedName
 
 /**
  * Application-wide Data Model for News Articles, embedded in API Responses.
+ *
+ * @author Kaushik N Sanji
  */
 data class NewsArticle(
     @Expose
