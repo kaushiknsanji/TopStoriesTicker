@@ -34,8 +34,8 @@ import java.util.concurrent.TimeUnit
  */
 object Networking {
 
-    // Timeout constant (in seconds)
-    private const val NETWORK_CALL_TIMEOUT = 60L
+    // Timeout constant (10 seconds)
+    private const val NETWORK_CALL_TIMEOUT = 10L
 
     /**
      * Factory method that configures the [Retrofit] and
@@ -48,55 +48,53 @@ object Networking {
      *
      * @return Instance of [service] API
      */
-    /* @Suppress("UNCHECKED_CAST")
-     fun <T : Any> createService(
-         apiKey: String,
-         baseUrl: String,
-         cacheDir: File,
-         cacheSize: Long,
-         service: KClass<T>
-     ): T = Retrofit.Builder() // Creating an Instance of Retrofit
-         .baseUrl(baseUrl) //URL on which every endpoint will be appended
-         .client(
-             // Setting up HTTP Client using OkHttpClient
-             OkHttpClient.Builder()
-                 // Configure Cache
-                 .cache(Cache(cacheDir, cacheSize))
-                 // Add Interceptor to log the request and response
-                 .addInterceptor(
-                     HttpLoggingInterceptor()
-                         .apply {
-                             // Configure Logging with BODY level info only for DEBUG Build
-                             level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
-                             // No Logging for any other Build
-                             else HttpLoggingInterceptor.Level.NONE
-                         })
-                 // Add Interceptor to append the API Key on the request
-                 .addInterceptor { chain: Interceptor.Chain ->
-                     // Proceed with the New Request built to append the API Key
-                     chain.proceed(
-                         // Rebuilding a New Request from the original with the new URL
-                         chain.request().newBuilder()
-                             .url(
-                                 // Rebuilding the URL with the API Key appended
-                                 chain.request().url().newBuilder()
-                                     .addQueryParameter(QueryArgs.API_KEY, getApiKey(apiKey))
-                                     .build()
-                             ).build()
-                     )
-                 }
-                 // Read Timeout for response
-                 .readTimeout(NETWORK_CALL_TIMEOUT, TimeUnit.SECONDS)
-                 // Write Timeout for request
-                 .writeTimeout(NETWORK_CALL_TIMEOUT, TimeUnit.SECONDS)
-                 .build() // Generate the OkHttpClient instance
-         )
-         // GSON Converter Factory to parse JSON and construct Objects
-         .addConverterFactory(GsonConverterFactory.create())
-         .build() // Generate the Retrofit instance
-         // Create the API for the Service with the Retrofit Configuration
-         .create(service::class.java) as T
-         */
+    /*fun <T : Any> createService(
+        apiKey: String,
+        baseUrl: String,
+        cacheDir: File,
+        cacheSize: Long,
+        service: KClass<T>
+    ): T = Retrofit.Builder() // Creating an Instance of Retrofit
+        .baseUrl(baseUrl) //URL on which every endpoint will be appended
+        .client(
+            // Setting up HTTP Client using OkHttpClient
+            OkHttpClient.Builder()
+                // Configure Cache
+                .cache(Cache(cacheDir, cacheSize))
+                // Add Interceptor to append the API Key on the request
+                .addInterceptor { chain: Interceptor.Chain ->
+                    // Proceed with the New Request built to append the API Key
+                    chain.proceed(
+                        // Rebuilding a New Request from the original with the new URL
+                        chain.request().newBuilder()
+                            .url(
+                                // Rebuilding the URL with the API Key appended
+                                chain.request().url().newBuilder()
+                                    .addQueryParameter(QueryArgs.API_KEY, getApiKey(apiKey))
+                                    .build()
+                            ).build()
+                    )
+                }
+                // Add Interceptor to log the request and response
+                .addInterceptor(
+                    HttpLoggingInterceptor()
+                        .apply {
+                            // Configure Logging with BODY level info only for DEBUG Build
+                            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+                            // No Logging for any other Build
+                            else HttpLoggingInterceptor.Level.NONE
+                        })
+                // Read Timeout for response
+                .readTimeout(NETWORK_CALL_TIMEOUT, TimeUnit.SECONDS)
+                // Write Timeout for request
+                .writeTimeout(NETWORK_CALL_TIMEOUT, TimeUnit.SECONDS)
+                .build() // Generate the OkHttpClient instance
+        )
+        // GSON Converter Factory to parse JSON and construct Objects
+        .addConverterFactory(GsonConverterFactory.create())
+        .build() // Generate the Retrofit instance
+        // Create the API for the Service with the Retrofit Configuration
+        .create(service::class.java) as T*/
 
     /**
      * Factory method that configures the [Retrofit] and

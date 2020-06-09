@@ -23,10 +23,13 @@ package com.kaushiknsanji.topstoriesticker.data.remote
  */
 object QueryArgs {
 
+    // Argument for Editor's Picks
     const val SHOW_EDITOR_PICKS = "show-editors-picks"
 
+    // Argument for start date
     const val FROM_DATE = "from-date"
 
+    // Argument for output fields filtering
     const val SHOW_FIELDS = "show-fields"
 
     // Constants that restrict the output to required fields in SHOW_FIELDS
