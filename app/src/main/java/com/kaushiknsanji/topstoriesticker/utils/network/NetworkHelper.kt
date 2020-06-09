@@ -123,7 +123,9 @@ class NetworkHelper(private val context: Context) {
     }
 
     /**
-     * Returns `true` if the Network is established; `false` otherwise.
+     * Checks for Network connectivity.
+     *
+     * @return `true` if the Network is established; `false` otherwise.
      */
     fun isNetworkConnected(): Boolean = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         // For version M and above
@@ -140,7 +142,8 @@ class NetworkHelper(private val context: Context) {
     /**
      * Method used to get the Network connectivity status on launch. This is required since the
      * registered Network callback updates respond later (not immediately).
-     * Returns `true` if the Network is established; `false` otherwise.
+     *
+     * @return `true` if the Network is established; `false` otherwise.
      */
     private fun getInitialConnectivityStatus(): Boolean =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -161,7 +164,8 @@ class NetworkHelper(private val context: Context) {
 
     /**
      * Checks Network connectivity the old way using [ConnectivityManager.getActiveNetworkInfo].
-     * Returns `true` if the Network is established; `false` otherwise.
+     *
+     * @return `true` if the Network is established; `false` otherwise.
      */
     private fun getConnectivityStatusTheOldWay(): Boolean {
         // Get the current active default data network in old style
