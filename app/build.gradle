@@ -24,6 +24,11 @@ def credPropertiesFile = rootProject.file("credentials.properties")
 def credProperties = new Properties()
 credProperties.load(new FileInputStream(credPropertiesFile))
 
+// Load the details for signing the APK
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     // Constants defined for use with buildConfigField
     def STRING = "String"
@@ -31,6 +36,15 @@ android {
     def GUARDIAN_API_KEY_VAL = '"' + credProperties['GUARDIAN_API_KEY_VAL'] + '"'
     def BASE_URL = "BASE_URL"
     def BASE_URL_VAL = '"' + "https://content.guardianapis.com" + '"'
+
+    signingConfigs {
+        release {
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+        }
+    }
 
     compileSdkVersion rootProject.ext.compile_sdk_version
 
@@ -43,18 +57,25 @@ android {
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        archivesBaseName = "$applicationId-v$versionName"
     }
 
     buildTypes {
         debug {
+            // API Key for Guardian News
             buildConfigField STRING, BASE_URL, BASE_URL_VAL
             buildConfigField STRING, GUARDIAN_API_KEY, GUARDIAN_API_KEY_VAL
         }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            // API Key for Guardian News
             buildConfigField STRING, BASE_URL, BASE_URL_VAL
             buildConfigField STRING, GUARDIAN_API_KEY, GUARDIAN_API_KEY_VAL
+
+            // Automate App signing
+            signingConfig signingConfigs.release
         }
     }
 

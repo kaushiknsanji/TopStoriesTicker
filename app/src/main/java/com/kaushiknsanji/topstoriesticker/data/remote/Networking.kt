@@ -69,7 +69,7 @@ object Networking {
                         chain.request().newBuilder()
                             .url(
                                 // Rebuilding the URL with the API Key appended
-                                chain.request().url().newBuilder()
+                                chain.request().url.newBuilder()
                                     .addQueryParameter(QueryArgs.API_KEY, getApiKey(apiKey))
                                     .build()
                             ).build()
