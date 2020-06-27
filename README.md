@@ -1,24 +1,30 @@
-# Top Stories Ticker
+# Top Stories Ticker - v1.0
 
 ![GitHub](https://img.shields.io/github/license/kaushiknsanji/TopStoriesTicker)  ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/kaushiknsanji/TopStoriesTicker)  ![GitHub repo size](https://img.shields.io/github/repo-size/kaushiknsanji/TopStoriesTicker)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/kaushiknsanji/TopStoriesTicker)  ![GitHub All Releases](https://img.shields.io/github/downloads/kaushiknsanji/TopStoriesTicker/total) ![GitHub search hit counter](https://img.shields.io/github/search/kaushiknsanji/TopStoriesTicker/News%20Ticker%20App) ![Minimum API level](https://img.shields.io/badge/API-21+-yellow)
+![GitHub Releases](https://img.shields.io/github/downloads/kaushiknsanji/TopStoriesTicker/v1.0/total)
 
-This App has been developed as part of the **[30 Days of Kotlin with Google Developers](https://eventsonair.withgoogle.com/events/kotlin)**. App simulates a News Ticker. Its source is the [Guardian News API](https://open-platform.theguardian.com/documentation/) which loads only the Editor-Picked News Items one-by-one (ticker).
+This is the Release version 1.0 of **TopStoriesTicker** app.
 
----
+## Changes done in this Release
 
-## App Compatibility
+* Bumped versions of dependencies to their latest version and tested - ([commit](https://github.com/kaushiknsanji/TopStoriesTicker/commit/5db4e0951d4501b778ab2b353337dce1c2a20b85))
+* Added Proguard Rules to keep the Model classes "AS IS" - ([commit](https://github.com/kaushiknsanji/TopStoriesTicker/commit/1a9c5f72bcaaf648445122f2e4183f16c1dd0878))
+* Other minor changes to prepare the app for release - ([commit](https://github.com/kaushiknsanji/TopStoriesTicker/commit/1a9c5f72bcaaf648445122f2e4183f16c1dd0878))
 
-Android device running with Android OS 5.0 (API Level 21) or above. Best experienced on Android Nougat 7.1 and above. Designed for Phones and NOT for Tablets.
+## License
 
----
+```
+Copyright 2020 Kaushik N. Sanji
 
-## Getting Started
+Licensed under the Apache License, Version 2.0 (the "License"); 
+you may not use this file except in compliance with the License. 
+You may obtain a copy of the License at
 
-* Register for the Developer API Key from the [Guardian Open Platform](https://open-platform.theguardian.com/access/). Registration is free of cost.
-* Create a Properties File named **credentials.properties** in the Project's root folder.
-* Define a property named **GUARDIAN_API_KEY_VAL** and assign it the value of the API Key obtained from the Registration process.
-* If the above API Key is not defined, then the App will use the default **"test"** API Key which is heavily rate-limited. Whenever the rate-limit is hit, the app may crash or not display proper results.
-* The Developer API Key is also rate-limited, but not as limited as the default **"test"** API Key.
-
----
+   http://www.apache.org/licenses/LICENSE-2.0
+   
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
