@@ -59,6 +59,7 @@ Android device running with Android OS 5.0 (API Level 21) or above. Best experie
 
 * App follows **MVVM with Repository pattern** as proposed by **MindOrks** in their [course](https://mindorks.com/android-app-development-online-course-for-professionals).
 * Coroutines Flow has been used to emit the Articles one at a time to simulate a News ticker. Exceptions are handled using its `CoroutineExceptionHandler`, `onCompletion` block and `onCatch` block. Flow is switched to work in IO Dispatcher to avoid blocking the UI.
+* **Top Stories** news feed that shows a list of **Editor-Picked News** Items is retrieved from the [International](http://content.guardianapis.com/international) endpoint. Content is only affected by the start date (`from-date` query parameter) of the News feed mentioned in the [Request URL](https://content.guardianapis.com/international?show-editors-picks=true&from-date=2020-06-01&show-fields=trailText,byline,thumbnail&api-key=test).
 
 ---
 
