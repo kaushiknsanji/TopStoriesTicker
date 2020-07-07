@@ -87,6 +87,14 @@ App Icon is from [Icons8](https://icons8.com).
 
 ---
 
+## Participation Certificate
+
+<a href="https://drive.google.com/file/d/1cwojVFygUYmzjzxEaKpOtqydMwLKThyA/view?usp=sharing">
+<img alt="Participation Certificate" src="https://github.com/kaushiknsanji/TopStoriesTicker/blob/master/artwork/30_Days_of_Kotlin.png" width="50%">
+</a>
+
+---
+
 ## License
 
 ```
